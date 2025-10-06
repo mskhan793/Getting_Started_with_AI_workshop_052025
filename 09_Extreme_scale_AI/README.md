@@ -2,7 +2,7 @@
 
 These examples are based on the ROCm container provided to you at:
 ```
-/appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif
+/appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif
 ```
 
 The examples also assume there is an allocation in place to be used for one or more nodes. That could be accomplished with, e.g.:
@@ -13,7 +13,7 @@ The examples also assume there is an allocation in place to be used for one or m
 With the allocation and container set we can do a quick smoke test to make sure Pytorch can detect the GPUs available in a node:
 ```
 srun singularity exec \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     bash -c '$WITH_CONDA ; \
              python -c "import torch; print(torch.cuda.device_count())"'
 ```
@@ -110,7 +110,7 @@ srun -N1 -n8 --gpus 8 \
     --cpu-bind=mask_cpu=0x00fe000000000000,0xfe00000000000000,0x0000000000fe0000,0x00000000fe000000,0x00000000000000fe,0x000000000000fe00,0x000000fe00000000,0x0000fe0000000000\
     singularity exec \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     /workdir/run.sh \
         python -u /workdir/GPT-neo-IMDB-finetuning-mp.py \
                --model-name gpt-imdb-model \
@@ -128,7 +128,7 @@ srun -N2 -n16 --gpus 16 \
     -B /opt/cray \
     -B /usr/lib64/libcxi.so.1 \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     /workdir/run.sh \
         python -u /workdir/GPT-neo-IMDB-finetuning-mp.py \
                --model-name gpt-imdb-model \
@@ -162,7 +162,7 @@ srun -N2 -n16 --gpus 16 \
     -B /opt/cray \
     -B /usr/lib64/libcxi.so.1 \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     /workdir/run-profile.sh \
         python -u /workdir/GPT-neo-IMDB-finetuning-mp.py \
                --model-name gpt-imdb-model \
@@ -225,7 +225,7 @@ srun -N $N -n $((N*8)) --gpus $((N*8)) \
     -B /usr/lib64/libcxi.so.1 \
     -B .:/workdir \
     -B /flash -B /pfs \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     /workdir/run.sh \
         python -u /workdir/cv_example.py \
           -a resnet50 \
@@ -280,7 +280,7 @@ https://github.com/microsoft/DeepSpeedExamples/raw/master/training/imagenet/conf
 Parse the files to create some understanding of the differences.
 
 ### 2. Running DeepSpeed with required dependencies 
-This container has DeepSpeed already installed so we will leverage it: `/appl/local/containers/sif-images/lumi-pytorch-rocm-6.1.3-python-3.12-pytorch-v2.4.1.sif`.
+This container has DeepSpeed already installed so we will leverage it: `/appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif`.
 
 You can run the example like the following, however some dependencies might be missing. Can you install those? Can you setup the `spawn` multiprocessing mode?
 ```
@@ -294,7 +294,7 @@ srun -N $N -n $((N*8)) --gpus $((N*8)) \
     -B /usr/lib64/libcxi.so.1 \
     -B .:/workdir \
     -B /flash -B /pfs \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif  \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif  \
     /workdir/run.sh \
         python -u /workdir/cv_example_ds.py \
           --deepspeed \
@@ -336,7 +336,7 @@ srun -N $N -n $((N*8)) --gpus $((N*8)) \
     -B /usr/lib64/libcxi.so.1 \
     -B .:/workdir \
     -B /flash -B /pfs \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     /workdir/run.sh \
         python -u /workdir/cv_example.py \
           -a resnet50 \
