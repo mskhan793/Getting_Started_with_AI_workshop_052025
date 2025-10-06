@@ -2,7 +2,7 @@
 
 These examples are based on the ROCm container provided to you at:
 ```
-/appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif
+/appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif
 ```
 
 To avoid running into any storage issues, we recomment running the examples from a folder you create in the scratch file system, e.g.:
@@ -31,7 +31,7 @@ The difference is that it gives you a mechanism to just allocate the nodes witho
 With the allocation and container set we can do a quick smoke test to make sure Pytorch can detect the GPUs available in a node:
 ```
 srun singularity exec \
-  /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif \
+  /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif \
     bash -c '$WITH_CONDA ; \
              python -c "import torch; print(torch.cuda.device_count())"'
 ```
@@ -58,7 +58,7 @@ mkdir -p torch-cache hf-cache
 
 srun -n1 singularity exec \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     bash -c '$WITH_CONDA ; cd /workdir ; \
              HIP_VISIBLE_DEVICES=0 \
              TORCH_HOME=/workdir/torch-cache \
@@ -86,7 +86,7 @@ squeue --me
 ```
 * Start interactive parallel session:
 ```
-srun --jobid 7100665 --interactive --pty /bin/bash
+srun --jobid 7100665 --overlap --pty /bin/bash
 ```
 * Use `rocm-smi` to monitor GPU activity:
 ```
@@ -118,7 +118,7 @@ So, running the following:
 ```
 srun -n1 singularity exec \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     bash -c '$WITH_CONDA ;  cd /workdir ; \
              HIP_VISIBLE_DEVICES=0 \
              AMD_LOG_LEVEL=4 \
@@ -148,7 +148,7 @@ Another way to check for GPU activity is to use a profiler. There is a GPU profi
 ```
 srun -n1 singularity exec \
     -B .:/workdir \
-   /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+   /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     rocprof --help
 ```
 Given that Pytorch uses the HIP runtime in its implementation, one of the most relevant options is `--hip-trace` to instruct the profiler to collect the HIP runtime activity. Another option that is convinient is `--stats` that generates some statistics on the usage of the GPU. 
@@ -171,7 +171,7 @@ Now we can just run the profiler by preceding our original command with `rocprof
 ```
 srun -n1 singularity exec \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     bash -c '$WITH_CONDA ; cd /workdir ;  \
              HIP_VISIBLE_DEVICES=0 \
              TORCH_HOME=/workdir/torch-cache \
@@ -219,7 +219,7 @@ Run as before:
 ```
 srun -n1 singularity exec \
     -B .:/workdir \
-    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.7.1.sif\
+    /appl/local/containers/sif-images/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0.sif\
     bash -c '$WITH_CONDA ; cd /workdir ;  \
              HIP_VISIBLE_DEVICES=0 \
              TORCH_HOME=/workdir/torch-cache \
