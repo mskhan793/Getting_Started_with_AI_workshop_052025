@@ -121,7 +121,7 @@ if __name__ == "__main__":
         save_steps=100,
         save_total_limit=4,
         logging_dir=logging_dir,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         eval_steps=200,  # compute validation loss every 200 steps
         learning_rate=2e-5,
         weight_decay=0.01,
